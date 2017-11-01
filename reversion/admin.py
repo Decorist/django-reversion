@@ -58,7 +58,7 @@ class VersionAdmin(admin.ModelAdmin):
     @contextmanager
     def create_revision(self, request):
         with create_revision():
-            set_user(request.user.uu_id if is_authenticated(request.user) else None)
+            set_user(request.user.uuid if is_authenticated(request.user) else None)
             yield
 
     # Revision helpers.
