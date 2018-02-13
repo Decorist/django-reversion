@@ -15,8 +15,8 @@ def _request_creates_revision(request):
 
 
 def _set_user_from_request(request):
-    if getattr(request, "user", None) and is_authenticated(request.user) and get_user() is None:
-        set_user(request.user.uuid)
+    if getattr(request, "jwt_user", None) and request.jwt_user.uuid and get_user() is None:
+        set_user(request.jwt_user.uuid)
 
 
 def create_revision(manage_manually=False, using=None, atomic=True):

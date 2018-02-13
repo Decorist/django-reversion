@@ -46,7 +46,7 @@ A *revision* represents one or more changes made to your model instances, groupe
         obj.save()
 
         # Store some meta-information.
-        reversion.set_user(request.user)
+        reversion.set_user(request.jwt_user.uuid)
         reversion.set_comment("Created revision 1")
 
     # Declare a new revision block.
@@ -57,7 +57,7 @@ A *revision* represents one or more changes made to your model instances, groupe
         obj.save()
 
         # Store some meta-information.
-        reversion.set_user(request.user)
+        reversion.set_user(request.jwt_user.uuid)
         reversion.set_comment("Created revision 2")
 
 .. Important::
@@ -96,12 +96,12 @@ Revision metadata
 
     # Check the revision metadata for the first revision.
     assert versions[1].revision.comment = "Created revision 1"
-    assert versions[1].revision.user = request.user
+    assert versions[1].revision.user = request.jwt_user.uuid
     assert isinstance(versions[1].revision.date_created, datetime.datetime)
 
     # Check the revision metadata for the second revision.
     assert versions[0].revision.comment = "Created revision 2"
-    assert versions[0].revision.user = request.user
+    assert versions[0].revision.user = request.jwt_user.uuid
     assert isinstance(versions[0].revision.date_created, datetime.datetime)
 
 
